@@ -16,9 +16,9 @@ if uploaded_file is not None:
     st.image(uploaded_file, caption='Uploaded Image.', width=360)
     st.markdown("Hurray, AI is making prediction!")
     st.write("")
-    st.markdown("**AI**: Chances of being Cancer is...")
+    st.markdown("**AI**: Diabetic Retinopathy Diagnosis is...")
     chance = predict(image)
-    st.success(f"{chance}%")
+    st.success(chance)
     # Delete Image as soon as we make prediction
     os.remove('./test/uploaded/temp.png')
 
