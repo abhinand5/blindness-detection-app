@@ -3,6 +3,8 @@ import torch
 import torchvision
 import cv2
 
+IMG_SIZE = 256
+
 
 def round_off_preds(preds, coef=[0.5, 1.5, 2.5, 3.5]):
     for i, pred in enumerate(preds):
@@ -45,15 +47,16 @@ def load_ben_color(image, sigmaX=10):
     image = crop_image_from_gray(image)
     image = cv2.resize(image, (IMG_SIZE, IMG_SIZE))
     image=cv2.addWeighted(image,4, cv2.GaussianBlur(image , (0,0) , sigmaX) ,-4 ,128)
+
     return image
 
 
 def preprocess_image(img_path):
     test_transforms = torchvision.transforms.Compose([
         torchvision.transforms.ToPILImage(),
-        torchvision.transforms.Resize((256, 256)),
+        torchvision.transforms.Resize((IMG_SIZE, IMG_SIZE)),
         torchvision.transforms.ToTensor(),
-        torchvision.transforms.Normalize(mean=(0.5, 0.5, 0.5), std=(0.5, 0.5, 0.5))
+        # torchvision.transforms.Normalize(mean=(0.5, 0.5, 0.5), std=(0.5, 0.5, 0.5))
     ])
 
     image = cv2.imread(img_path)
